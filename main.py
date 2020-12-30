@@ -4,8 +4,7 @@ import os
 import discord
 import requests
 import dotenv
-import str as stimulus
-import pickle
+import pickle5 as pickle
 from dotenv import load_dotenv
 from discord.ext import tasks
 from itertools import cycle
