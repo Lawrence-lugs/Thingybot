@@ -58,6 +58,8 @@ async def on_ready():
     print(f'{client.user} is connected to the following guild:\n'
           f'{guild.name}(id: {guild.id})')
 
+    await client.change_presence(activity=discord.Game(name="with Desmos"))
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -140,22 +142,12 @@ async def on_message(message):
         pointdict[key]=0
       save_obj(pointdict,'pointdict')
 
+    if message.content.startswith('!listpairs'):
+      for key in respdict:
+        await message.channel.send(f'{key}:{respdict[key]}')
+
 def check(message):
     return True
-
-
-status = cycle(['with Desmos', 'Minecraft'])
-
-
-@client.event
-async def on_ready():
-    change_status.start()
-    keep_alive()
-    print("Your bot is ready")
-
-@tasks.loop(seconds=10)
-async def change_status():
-    await client.change_presence(activity=discord.Game(next(status)))
 
 
 client.run(TOKEN)
