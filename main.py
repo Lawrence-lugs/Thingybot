@@ -144,7 +144,21 @@ async def on_message(message):
 
     if message.content.startswith('!listpairs'):
       for key in respdict:
-        await message.channel.send(f'{key}:{respdict[key]}')
+        await message.author.send(f'{key}:{respdict[key]}')
+
+    if message.content.startswith('!delpair'):
+      key2delete = ""
+      flaga = 0
+      for i in message.content:
+        if i == ' ':
+            flaga = 1
+        if flaga == 1:
+            key2delete += i
+      key2delete = key2delete.strip()
+      respdict.pop(key2delete, None)
+      save_obj(respdict, 'resppair')
+      await message.channel.send(f'key {key2delete} removed')
+
 
 def check(message):
     return True
